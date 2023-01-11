@@ -1,0 +1,45 @@
+[package]
+name = "light-client"
+version = "0.1.0"
+edition = "2018"
+description = "Succinct proofs of a BLS public key being an aggregate key of a subset of signers given a commitment to the set of all signers' keys"
+repository = "https://github.com/CCS23-anonymous/light-client"
+categories = ["cryptography"]
+
+[dependencies]
+ark-std = { version = "0.4.0-alpha", default-features = false }
+ark-ff = { version = "0.4.0-alpha", default-features = false }
+ark-ec = { version = "0.4.0-alpha", default-features = false }
+ark-poly = { version = "0.4.0-alpha", default-features = false }
+ark-serialize = { version = "0.4.0-alpha", default-features = false, features = ["derive"] }
+
+ark-bw6-761 = { version = "0.4.0-alpha.2", default-features = false }
+ark-bls12-377 = { version = "0.4.0-alpha.2", default-features = false, features = ["curve"] }
+
+fflonk = { git = "https://github.com/w3f/fflonk", branch="no-print-trace" }
+
+rand = "0.8"
+merlin = "3.0"
+blake2 = "0.9"
+rayon = { version = "1", optional = true }
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[test]]
+name = "basic"
+harness = false
+
+[[test]]
+name = "packed"
+harness = false
+
+[[test]]
+name = "counting"
+harness = false
+
+[features]
+default = []
+std = ["ark-std/std", "ark-ff/std", "ark-ec/std", "ark-poly/std", "ark-serialize/std"]
+parallel = ["std", "ark-std/parallel", "ark-ff/parallel", "ark-ec/parallel", "ark-poly/parallel", "fflonk/parallel", "rayon"]
+print-trace = ["ark-std/print-trace"]
